@@ -1,14 +1,30 @@
 from flask import Flask, request, jsonify
+from config import app, db, api
 from flask_migrate import Migrate
 from flask_cors import CORS
 from models import Artist, Artwork, Era, Discipline
-from config import app, db, api
 
+CORS(app, resources={r"/*": {"origins": "http://localhost:3000"}})
 db.init_app(app)
 api.init_app(app)
-CORS(app, resources={r"/*": {"origins": "http://localhost:3000"}})
 
 migrate = Migrate(app, db)
+
+@app.route('/debug-db', methods=['GET'])
+def debug_db():
+    try:
+        with db.engine.connect() as conn:
+            return jsonify({"message": "Database connection successful"}), 200
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+    
+@app.route('/debug-disciplines', methods=['GET'])
+def debug_disciplines():
+    try:
+        disciplines = Discipline.query.all()
+        return jsonify([discipline.to_dict() for discipline in disciplines]), 200
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
 
 @app.route('/')
 def index():
