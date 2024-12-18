@@ -27,12 +27,12 @@ def create_discipline():
 @app.route('/disciplines', methods=['GET'])
 def get_disciplines():
     disciplines = Discipline.query.all()
-    return jsonify([discipline.name for discipline in disciplines])
+    return jsonify([discipline.to_dict() for discipline in disciplines])
 
 @app.route('/disciplines/<int:id>', methods=['GET'])
 def get_discipline(id):
     discipline = Discipline.query.get_or_404(id)
-    return jsonify({'name': discipline.name})
+    return jsonify(discipline.to_dict())
 
 @app.route('/artworks', methods=['POST'])
 def create_artwork():
@@ -51,16 +51,12 @@ def create_artwork():
 @app.route('/artworks', methods=['GET'])
 def get_artworks():
     artworks = Artwork.query.all()
-    return jsonify([artwork.title for artwork in artworks])
+    return jsonify([artwork.to_dict() for artwork in artworks])
 
 @app.route('/artworks/<int:id>', methods=['GET'])
 def get_artwork(id):
     artwork = Artwork.query.get_or_404(id)
-    return jsonify({
-        'title': artwork.title,
-        'description': artwork.description,
-        'image_file': artwork.image_file
-    })
+    return jsonify(artwork.to_dict())
 
 @app.route('/artworks/<int:id>', methods=['DELETE'])
 def delete_artwork(id):
@@ -94,12 +90,12 @@ def create_artist():
 @app.route('/artists', methods=['GET'])
 def get_artists():
     artists = Artist.query.all()
-    return jsonify([artist.name for artist in artists])
+    return jsonify([artist.to_dict() for artist in artists])
 
 @app.route('/artists/<int:id>', methods=['GET'])
 def get_artist(id):
     artist = Artist.query.get_or_404(id)
-    return jsonify({'name': artist.name, 'biography': artist.biography})
+    return jsonify(artist.to_dict())
 
 @app.route('/eras', methods=['POST'])
 def create_era():
@@ -112,12 +108,12 @@ def create_era():
 @app.route('/eras', methods=['GET'])
 def get_eras():
     eras = Era.query.all()
-    return jsonify([era.name for era in eras])
+    return jsonify([era.to_dict() for era in eras])
 
 @app.route('/eras/<int:id>', methods=['GET'])
 def get_era(id):
     era = Era.query.get_or_404(id)
-    return jsonify({'name': era.name, 'description': era.description})
+    return jsonify(era.to_dict())
 
 if __name__ == '__main__':
     app.run(port=5555, debug=True)
