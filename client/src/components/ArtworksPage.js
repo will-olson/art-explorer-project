@@ -28,37 +28,37 @@ function ArtworksPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const artworkData = { title, description, image_file: imageFile, artist_id: artistId, discipline_id: disciplineId };
-
+  
     try {
       const response = await fetch('http://localhost:5555/artworks', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(artworkData),
       });
-
+  
       if (response.ok) {
         alert('Artwork created successfully');
-        const updatedArtworks = await response.json();
-        setArtworks(updatedArtworks);
+        const newArtwork = await response.json();
+        setArtworks((prevArtworks) => [...prevArtworks, newArtwork]);
       } else {
         alert('Failed to create artwork');
       }
     } catch (error) {
       alert('Error: ' + error.message);
     }
-  };
-
+  };  
+  
   const handleThumbsUp = async (artworkId) => {
     try {
-      const response = await fetch(`http://localhost:5555/artworks/${artworkId}/thumbs-up`, {
+      const response = await fetch(`http://localhost:5555/artworks/${artworkId}/like`, {
         method: 'PATCH',
       });
-
+  
       if (response.ok) {
         const updatedArtwork = await response.json();
         setArtworks((prevArtworks) =>
           prevArtworks.map((artwork) =>
-            artwork.id === artworkId ? { ...artwork, thumbs_up: updatedArtwork.thumbs_up } : artwork
+            artwork.id === artworkId ? { ...artwork, like_count: updatedArtwork.like_count } : artwork
           )
         );
       } else {
@@ -68,18 +68,18 @@ function ArtworksPage() {
       alert('Error: ' + error.message);
     }
   };
-
+  
   const handleThumbsDown = async (artworkId) => {
     try {
-      const response = await fetch(`http://localhost:5555/artworks/${artworkId}/thumbs-down`, {
+      const response = await fetch(`http://localhost:5555/artworks/${artworkId}/dislike`, {
         method: 'PATCH',
       });
-
+  
       if (response.ok) {
         const updatedArtwork = await response.json();
         setArtworks((prevArtworks) =>
           prevArtworks.map((artwork) =>
-            artwork.id === artworkId ? { ...artwork, thumbs_down: updatedArtwork.thumbs_down } : artwork
+            artwork.id === artworkId ? { ...artwork, dislike_count: updatedArtwork.dislike_count } : artwork
           )
         );
       } else {
@@ -89,7 +89,7 @@ function ArtworksPage() {
       alert('Error: ' + error.message);
     }
   };
-
+  
   const handleDeleteArtwork = async (artworkId) => {
     try {
       const response = await fetch(`http://localhost:5555/artworks/${artworkId}`, {

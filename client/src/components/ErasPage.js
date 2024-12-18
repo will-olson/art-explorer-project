@@ -7,7 +7,6 @@ function ErasPage() {
   const [description, setDescription] = useState('');
 
   useEffect(() => {
-    // Fetch the existing eras
     fetch('http://localhost:5555/eras')
       .then((res) => res.json())
       .then((data) => setEras(data));
@@ -40,14 +39,12 @@ function ErasPage() {
     <div className="page-container">
       <h1>Eras</h1>
 
-      {/* List of Eras */}
       <div className="era-list">
         {eras.map((era) => (
           <EraCard key={era.id} era={era} />
         ))}
       </div>
 
-      {/* Era Creation Form */}
       <div className="form-section">
         <form onSubmit={handleSubmit}>
           <label>Name:</label>

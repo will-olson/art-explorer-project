@@ -7,7 +7,6 @@ function DisciplinesPage() {
   const [description, setDescription] = useState('');
 
   useEffect(() => {
-    // Fetch the existing disciplines
     fetch('http://localhost:5555/disciplines')
       .then((res) => res.json())
       .then((data) => setDisciplines(data));
@@ -40,14 +39,12 @@ function DisciplinesPage() {
     <div className="page-container">
       <h1>Disciplines</h1>
 
-      {/* List of Disciplines */}
       <div className="discipline-list">
         {disciplines.map((discipline) => (
           <DisciplineCard key={discipline.id} discipline={discipline} />
         ))}
       </div>
 
-      {/* Discipline Creation Form */}
       <div className="form-section">
         <form onSubmit={handleSubmit}>
           <label>Name:</label>

@@ -84,14 +84,14 @@ def like_artwork(id):
     artwork = Artwork.query.get_or_404(id)
     artwork.like_count += 1
     db.session.commit()
-    return jsonify({'message': 'Artwork liked'}), 200
+    return jsonify(artwork.to_dict()), 200
 
 @app.route('/artworks/<int:id>/dislike', methods=['PATCH'])
 def dislike_artwork(id):
     artwork = Artwork.query.get_or_404(id)
     artwork.dislike_count += 1
     db.session.commit()
-    return jsonify({'message': 'Artwork disliked'}), 200
+    return jsonify(artwork.to_dict()), 200
 
 @app.route('/artists', methods=['POST'])
 def create_artist():

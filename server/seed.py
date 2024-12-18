@@ -43,26 +43,26 @@ with app.app_context():
     db.session.add_all(artists)
 
     artworks = [
-        Artwork(title="Mona Lisa", description="A portrait by Leonardo da Vinci, one of the most famous works in the world.", image_file="monalisa.jpg", artist_id=1, discipline_id=1),
-        Artwork(title="David", description="A masterpiece of Renaissance sculpture by Michelangelo.", image_file="david.jpg", artist_id=2, discipline_id=2),
-        Artwork(title="The Night Watch", description="A famous Baroque painting by Rembrandt.", image_file="nightwatch.jpg", artist_id=3, discipline_id=1),
-        Artwork(title="Judith Beheading Holofernes", description="A Baroque painting by Caravaggio, known for its dramatic use of light.", image_file="judith.jpg", artist_id=4, discipline_id=1),
-        Artwork(title="Guernica", description="A monumental painting by Pablo Picasso, depicting the horrors of war.", image_file="guernica.jpg", artist_id=5, discipline_id=1),
-        Artwork(title="The Two Fridas", description="A double self-portrait by Frida Kahlo.", image_file="thetwofridas.jpg", artist_id=6, discipline_id=1),
-        Artwork(title="Water Lilies", description="A series of Impressionist paintings by Claude Monet, capturing light and reflections.", image_file="waterlilies.jpg", artist_id=7, discipline_id=1),
-        Artwork(title="Ballet Rehearsal", description="A painting by Edgar Degas, showing the movement and grace of dancers.", image_file="ballet.jpg", artist_id=8, discipline_id=1),
-        Artwork(title="Girl with a Balloon", description="A famous street art piece by Banksy, symbolizing hope and innocence.", image_file="balloon.jpg", artist_id=9, discipline_id=3),
-        Artwork(title="Infinity Mirror Room", description="An immersive art installation by Yayoi Kusama, known for its use of polka dots.", image_file="infinityroom.jpg", artist_id=10, discipline_id=4),
-        Artwork(title="The Last Supper", description="A depiction of Jesus' final meal, painted by Leonardo da Vinci.", image_file="lastsupper.jpg", artist_id=1, discipline_id=1),
-        Artwork(title="Pietà", description="A sculpture by Michelangelo depicting the Virgin Mary holding Jesus.", image_file="pieta.jpg", artist_id=2, discipline_id=2),
-        Artwork(title="The Storm on the Sea of Galilee", description="A Baroque painting by Rembrandt depicting a turbulent sea.", image_file="stormsea.jpg", artist_id=3, discipline_id=1),
-        Artwork(title="The Supper at Emmaus", description="A Baroque painting by Caravaggio, showing the moment of revelation.", image_file="emmaus.jpg", artist_id=4, discipline_id=1),
-        Artwork(title="The Weeping Woman", description="A portrait by Pablo Picasso, expressing the anguish of war.", image_file="weepingwoman.jpg", artist_id=5, discipline_id=1),
-        Artwork(title="The Broken Column", description="A surreal self-portrait by Frida Kahlo, symbolizing her pain.", image_file="brokencolumn.jpg", artist_id=6, discipline_id=1),
-        Artwork(title="Impression, Sunrise", description="An iconic Impressionist painting by Claude Monet, giving the movement its name.", image_file="impression.jpg", artist_id=7, discipline_id=1),
-        Artwork(title="The Little Dancer", description="A sculpture by Edgar Degas capturing a dancer in motion.", image_file="littledancer.jpg", artist_id=8, discipline_id=2),
-        Artwork(title="Exit Through the Gift Shop", description="A film and artwork by Banksy, commenting on consumerism.", image_file="giftshop.jpg", artist_id=9, discipline_id=3),
-        Artwork(title="Pumpkin", description="A large installation by Yayoi Kusama, featuring a polka-dotted pumpkin sculpture.", image_file="pumpkin.jpg", artist_id=10, discipline_id=4)
+        Artwork(title="Mona Lisa", description="A portrait by Leonardo da Vinci, one of the most famous works in the world.", image_file="monalisa.jpg", artist_id=1, discipline_id=1, like_count=0, dislike_count=0),
+        Artwork(title="David", description="A masterpiece of Renaissance sculpture by Michelangelo.", image_file="david.jpg", artist_id=2, discipline_id=2, like_count=0, dislike_count=0),
+        Artwork(title="The Night Watch", description="A famous Baroque painting by Rembrandt.", image_file="nightwatch.jpg", artist_id=3, discipline_id=1, like_count=0, dislike_count=0),
+        Artwork(title="Judith Beheading Holofernes", description="A Baroque painting by Caravaggio, known for its dramatic use of light.", image_file="judith.jpg", artist_id=4, discipline_id=1, like_count=0, dislike_count=0),
+        Artwork(title="Guernica", description="A monumental painting by Pablo Picasso, depicting the horrors of war.", image_file="guernica.jpg", artist_id=5, discipline_id=1, like_count=0, dislike_count=0),
+        Artwork(title="The Two Fridas", description="A double self-portrait by Frida Kahlo.", image_file="thetwofridas.jpg", artist_id=6, discipline_id=1, like_count=0, dislike_count=0),
+        Artwork(title="Water Lilies", description="A series of Impressionist paintings by Claude Monet, capturing light and reflections.", image_file="waterlilies.jpg", artist_id=7, discipline_id=1, like_count=0, dislike_count=0),
+        Artwork(title="Ballet Rehearsal", description="A painting by Edgar Degas, showing the movement and grace of dancers.", image_file="ballet.jpg", artist_id=8, discipline_id=1, like_count=0, dislike_count=0),
+        Artwork(title="Girl with a Balloon", description="A famous street art piece by Banksy, symbolizing hope and innocence.", image_file="balloon.jpg", artist_id=9, discipline_id=3, like_count=0, dislike_count=0),
+        Artwork(title="Infinity Mirror Room", description="An immersive art installation by Yayoi Kusama, known for its use of polka dots.", image_file="infinityroom.jpg", artist_id=10, discipline_id=4, like_count=0, dislike_count=0),
+        Artwork(title="The Last Supper", description="A depiction of Jesus' final meal, painted by Leonardo da Vinci.", image_file="lastsupper.jpg", artist_id=1, discipline_id=1, like_count=0, dislike_count=0),
+        Artwork(title="Pietà", description="A sculpture by Michelangelo depicting the Virgin Mary holding Jesus.", image_file="pieta.jpg", artist_id=2, discipline_id=2, like_count=0, dislike_count=0),
+        Artwork(title="The Storm on the Sea of Galilee", description="A Baroque painting by Rembrandt depicting a turbulent sea.", image_file="stormsea.jpg", artist_id=3, discipline_id=1, like_count=0, dislike_count=0),
+        Artwork(title="The Supper at Emmaus", description="A Baroque painting by Caravaggio, showing the moment of revelation.", image_file="emmaus.jpg", artist_id=4, discipline_id=1, like_count=0, dislike_count=0),
+        Artwork(title="The Weeping Woman", description="A portrait by Pablo Picasso, expressing the anguish of war.", image_file="weepingwoman.jpg", artist_id=5, discipline_id=1, like_count=0, dislike_count=0),
+        Artwork(title="The Broken Column", description="A surreal self-portrait by Frida Kahlo, symbolizing her pain.", image_file="brokencolumn.jpg", artist_id=6, discipline_id=1, like_count=0, dislike_count=0),
+        Artwork(title="Impression, Sunrise", description="An iconic Impressionist painting by Claude Monet, giving the movement its name.", image_file="impression.jpg", artist_id=7, discipline_id=1, like_count=0, dislike_count=0),
+        Artwork(title="The Little Dancer", description="A sculpture by Edgar Degas capturing a dancer in motion.", image_file="littledancer.jpg", artist_id=8, discipline_id=2, like_count=0, dislike_count=0),
+        Artwork(title="Exit Through the Gift Shop", description="A film and artwork by Banksy, commenting on consumerism.", image_file="giftshop.jpg", artist_id=9, discipline_id=3, like_count=0, dislike_count=0),
+        Artwork(title="Pumpkin", description="A large installation by Yayoi Kusama, featuring a polka-dotted pumpkin sculpture.", image_file="pumpkin.jpg", artist_id=10, discipline_id=4, like_count=0, dislike_count=0)
     ]
     db.session.add_all(artworks)
 

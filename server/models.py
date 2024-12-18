@@ -26,6 +26,8 @@ class Artwork(db.Model, SerializerMixin):
     image_file = db.Column(db.String)
     artist_id = db.Column(db.Integer, db.ForeignKey('artists.id'))
     discipline_id = db.Column(db.Integer, db.ForeignKey('disciplines.id'))
+    like_count = db.Column(db.Integer, default=0)
+    dislike_count = db.Column(db.Integer, default=0)
 
     artist = db.relationship('Artist', back_populates='artworks')
     discipline = db.relationship('Discipline', back_populates='artworks')
