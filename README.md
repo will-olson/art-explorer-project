@@ -1,5 +1,33 @@
 # Phase 4 Full-Stack Application Project Template
 
+
+## CRUD actions by resource
+
+```python
+Disciplines:
+POST /disciplines: Create a new discipline.
+GET /disciplines: List all disciplines.
+GET /disciplines/<id>: View a specific discipline.
+
+Artworks:
+POST /artworks: Create a new artwork.
+GET /artworks: List all artworks.
+GET /artworks/<id>: View details of a specific artwork.
+DELETE /artworks/<id>: Delete an artwork.
+PATCH /artworks/<id>/like: Increment the like count.
+PATCH /artworks/<id>/dislike: Decrement the like count.
+
+Artists:
+POST /artists: Create a new artist.
+GET /artists: List all artists.
+GET /artists/<id>: View artist profile.
+
+Eras:
+POST /eras: Create a new era.
+GET /eras: List all eras.
+GET /eras/<id>: View era details.
+```
+
 ## Learning Goals - test
 
 - Discuss the basic directory structure of a full-stack Flask/React application.
