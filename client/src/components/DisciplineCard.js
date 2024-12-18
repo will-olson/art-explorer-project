@@ -2,8 +2,8 @@ import React from 'react';
 
 function DisciplineCard({ discipline }) {
   return (
-    <div>
-      <h2>{discipline.name}</h2>
+    <div className="discipline-card card">
+      <h2 className="card-title">{discipline.name}</h2>
     </div>
   );
 }
