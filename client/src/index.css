@@ -1,7 +1,141 @@
+/*
+Theme: Art Explorer - Canary Yellow Trojanhorse
+*/
+
 :root {
-  --bg: #282c34;
-  --header: #fff;
-  --link: #61dafb;
-  --text: hsla(0, 0%, 100%, 0.88);
+  --primary-color: #ffcc00;
+  --secondary-color: #000000;
+  --font-main: 'Arial', sans-serif; /* Replaced with a simple sans-serif font */
+  --font-accent: 'Georgia', serif; /* Replaced with a web-safe serif font */
+  --font-size-base: 1rem;
+  --font-size-heading: 2rem;
+  --card-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
+body {
+  font-family: var(--font-main);
+  color: var(--secondary-color);
+  background-color: #ffffff;
+  margin: 0;
+  padding: 0;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-accent);
+  color: var(--secondary-color);
+}
+
+a {
+  color: var(--primary-color);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+.container {
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* Cards */
+.card {
+  border: 1px solid var(--primary-color);
+  border-radius: 8px;
+  padding: 20px;
+  margin: 10px 0;
+  background-color: #fff;
+  box-shadow: var(--card-shadow);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: scale(1.02);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.card-title {
+  font-size: var(--font-size-heading);
+  color: var(--secondary-color);
+  margin-bottom: 10px;
+}
+
+.card-content {
+  font-size: var(--font-size-base);
+  color: var(--secondary-color);
+}
+
+.card img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 4px;
+}
+
+/* Navigation */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--primary-color);
+  padding: 10px 20px;
+}
+
+.navbar a {
+  color: var(--secondary-color);
+  font-size: var(--font-size-base);
+  text-transform: uppercase;
+  margin: 0 10px;
+}
+
+/* Pages */
+.page-title {
+  text-align: center;
+  font-family: var(--font-accent);
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+}
+
+/* Specific for Eras and Disciplines */
+.era-card,
+.discipline-card {
+  background-color: var(--primary-color);
+  color: var(--secondary-color);
+}
+
+.era-card:hover,
+.discipline-card:hover {
+  background-color: var(--secondary-color);
+  color: #fff;
+}
+
+.era-card h2,
+.discipline-card h2 {
+  font-family: var(--font-main);
+  font-size: 1.5rem;
+}
+
+.era-card p,
+.discipline-card p {
+  font-size: 1rem;
+}
+
+/* Responsiveness */
+@media screen and (max-width: 768px) {
+  body {
+    font-size: 14px;
+  }
+
+  .navbar {
+    flex-direction: column;
+  }
+
+  .card {
+    padding: 15px;
+  }
+}
