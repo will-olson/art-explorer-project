@@ -1,14 +1,12 @@
 from flask import Flask, request, jsonify
-from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_cors import CORS
 from models import Artist, Artwork, Era, Discipline
 from config import app, db, api
 
-api.init_app(app)
-CORS(app)
-
 db.init_app(app)
+api.init_app(app)
+CORS(app, resources={r"/*": {"origins": "http://localhost:3000"}})
 
 migrate = Migrate(app, db)
 
