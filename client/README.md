@@ -1,3 +1,27 @@
+
+Disciplines:
+POST /disciplines: Create a new discipline.
+GET /disciplines: List all disciplines.
+GET /disciplines/<id>: View a specific discipline.
+
+Artworks:
+POST /artworks: Create a new artwork.
+GET /artworks: List all artworks.
+GET /artworks/<id>: View details of a specific artwork.
+DELETE /artworks/<id>: Delete an artwork.
+PATCH /artworks/<id>/like: Increment the like/dslike count.
+
+Artists:
+POST /artists: Create a new artist.
+GET /artists: List all artists.
+GET /artists/<id>: View artist profile.
+
+Eras:
+POST /eras: Create a new era.
+GET /eras: List all eras.
+GET /eras/<id>: View era details.
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
