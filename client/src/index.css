@@ -25,7 +25,6 @@ h2,
 h3,
 h4 {
   font-family: var(--font-accent);
-
 }
 
 a {
@@ -131,16 +130,110 @@ a:hover {
   margin-bottom: 20px;
 }
 
+.homepage-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.homepage-header h1 {
+  font-size: 3rem;
+  color: var(--primary-color);
+  margin-bottom: 10px;
+}
+
+.homepage-header p {
+  font-size: 1.25rem;
+  color: var(--secondary-color);
+}
+
+.homepage-section {
+  margin-bottom: 40px;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border: 1px solid var(--primary-color);
+  border-radius: 8px;
+  box-shadow: var(--card-shadow);
+}
+
+.homepage-section h2 {
+  font-size: 2rem;
+  margin-bottom: 15px;
+  color: var(--primary-color);
+}
+
+.homepage-section p {
+  font-size: 1rem;
+  color: var(--secondary-color);
+}
+
+.homepage-explore {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.homepage-explore div {
+  background-color: var(--highlight-color);
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: var(--card-shadow);
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.homepage-explore div:hover {
+  background-color: var(--primary-color);
+  transform: scale(1.02);
+}
+
+.homepage-explore div h3 {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+  color: #000000;
+}
+
+.homepage-explore div p {
+  font-size: 1rem;
+  margin-bottom: 10px;
+  color: var(--secondary-color);
+}
+
+.homepage-explore div ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.homepage-explore div ul li {
+  margin: 10px 0;
+}
+
+.homepage-explore div a {
+  text-decoration: underline;
+  color: var(--primary-color);
+  font-size: 1rem;
+}
+
+.homepage-explore div a:hover {
+  text-decoration: none;
+  color: var(--secondary-color);
+}
+
 .era-card,
 .discipline-card {
   background-color: var(--secondary-color);
   color: #000000;
+  padding: 20px;
+  border-radius: 8px;
+  border: 1px solid var(--primary-color);
+  box-shadow: var(--card-shadow);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .era-card:hover,
 .discipline-card:hover {
   background-color: var(--primary-color);
   color: #fff;
+  transform: scale(1.02);
 }
 
 .era-card h2,
@@ -262,11 +355,15 @@ textarea:invalid {
 
   .navbar {
     flex-direction: column;
-    align-items: center; 
+    align-items: center;
   }
 
   .card {
     padding: 15px;
+  }
+
+  .homepage-explore {
+    grid-template-columns: 1fr;
   }
 
   form {
