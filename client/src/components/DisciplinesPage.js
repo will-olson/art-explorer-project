@@ -24,9 +24,10 @@ function DisciplinesPage() {
       });
 
       if (response.ok) {
-        alert('Discipline created successfully');
-        const newDiscipline = await response.json();
-        setDisciplines((prevDisciplines) => [...prevDisciplines, newDiscipline]);
+        const updatedDisciplines = await fetch('http://localhost:5555/disciplines')
+          .then((res) => res.json());
+
+        setDisciplines(updatedDisciplines);
       } else {
         alert('Failed to create discipline');
       }

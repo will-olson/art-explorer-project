@@ -28,80 +28,21 @@ function ArtworksPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const artworkData = { title, description, image_file: imageFile, artist_id: artistId, discipline_id: disciplineId };
-  
+
     try {
       const response = await fetch('http://localhost:5555/artworks', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(artworkData),
       });
-  
-      if (response.ok) {
-        alert('Artwork created successfully');
-        const newArtwork = await response.json();
-        setArtworks((prevArtworks) => [...prevArtworks, newArtwork]);
-      } else {
-        alert('Failed to create artwork');
-      }
-    } catch (error) {
-      alert('Error: ' + error.message);
-    }
-  };  
-  
-  const handleThumbsUp = async (artworkId) => {
-    try {
-      const response = await fetch(`http://localhost:5555/artworks/${artworkId}/like`, {
-        method: 'PATCH',
-      });
-  
-      if (response.ok) {
-        const updatedArtwork = await response.json();
-        setArtworks((prevArtworks) =>
-          prevArtworks.map((artwork) =>
-            artwork.id === artworkId ? { ...artwork, like_count: updatedArtwork.like_count } : artwork
-          )
-        );
-      } else {
-        alert('Failed to add thumbs up');
-      }
-    } catch (error) {
-      alert('Error: ' + error.message);
-    }
-  };
-  
-  const handleThumbsDown = async (artworkId) => {
-    try {
-      const response = await fetch(`http://localhost:5555/artworks/${artworkId}/dislike`, {
-        method: 'PATCH',
-      });
-  
-      if (response.ok) {
-        const updatedArtwork = await response.json();
-        setArtworks((prevArtworks) =>
-          prevArtworks.map((artwork) =>
-            artwork.id === artworkId ? { ...artwork, dislike_count: updatedArtwork.dislike_count } : artwork
-          )
-        );
-      } else {
-        alert('Failed to add thumbs down');
-      }
-    } catch (error) {
-      alert('Error: ' + error.message);
-    }
-  };
-  
-  const handleDeleteArtwork = async (artworkId) => {
-    try {
-      const response = await fetch(`http://localhost:5555/artworks/${artworkId}`, {
-        method: 'DELETE',
-      });
 
       if (response.ok) {
-        setArtworks((prevArtworks) =>
-          prevArtworks.filter((artwork) => artwork.id !== artworkId)
-        );
+        const updatedArtworks = await fetch('http://localhost:5555/artworks')
+          .then((res) => res.json());
+
+        setArtworks(updatedArtworks);
       } else {
-        alert('Failed to delete artwork');
+        alert('Failed to create artwork');
       }
     } catch (error) {
       alert('Error: ' + error.message);
@@ -116,15 +57,6 @@ function ArtworksPage() {
         {artworks.map((artwork) => (
           <div key={artwork.id} className="artwork-item">
             <ArtworkCard artwork={artwork} />
-            <div className="artwork-actions">
-              <button onClick={() => handleThumbsUp(artwork.id)}>
-                👍 {artwork.thumbs_up || 0}
-              </button>
-              <button onClick={() => handleThumbsDown(artwork.id)}>
-                👎 {artwork.thumbs_down || 0}
-              </button>
-              <button onClick={() => handleDeleteArtwork(artwork.id)}>Delete</button>
-            </div>
           </div>
         ))}
       </div>

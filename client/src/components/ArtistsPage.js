@@ -30,9 +30,10 @@ function ArtistsPage() {
       });
 
       if (response.ok) {
-        alert('Artist created successfully');
-        const newArtist = await response.json();
-        setArtists((prevArtists) => [...prevArtists, newArtist]);
+        const updatedArtists = await fetch('http://localhost:5555/artists')
+          .then((res) => res.json());
+
+        setArtists(updatedArtists);
       } else {
         alert('Failed to create artist');
       }

@@ -15,18 +15,21 @@ function ErasPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const eraData = { name, description };
-
+  
     try {
       const response = await fetch('http://localhost:5555/eras', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(eraData),
       });
-
+  
       if (response.ok) {
-        alert('Era created successfully');
-        const newEra = await response.json();
-        setEras((prevEras) => [...prevEras, newEra]);
+        const updatedEras = await fetch('http://localhost:5555/eras')
+          .then((res) => res.json());
+  
+        setEras(updatedEras);
+        setName('');
+        setDescription('');
       } else {
         alert('Failed to create era');
       }
@@ -34,6 +37,7 @@ function ErasPage() {
       alert('Error: ' + error.message);
     }
   };
+  
 
   return (
     <div className="page-container">
