@@ -28,8 +28,10 @@ function ErasPage() {
           .then((res) => res.json());
   
         setEras(updatedEras);
+
         setName('');
         setDescription('');
+        
       } else {
         alert('Failed to create era');
       }

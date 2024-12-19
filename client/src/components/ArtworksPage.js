@@ -41,8 +41,70 @@ function ArtworksPage() {
           .then((res) => res.json());
 
         setArtworks(updatedArtworks);
+        setTitle('');
+        setDescription('');
+        setImageFile('');
+        setArtistId('');
+        setDisciplineId('');
       } else {
         alert('Failed to create artwork');
+      }
+    } catch (error) {
+      alert('Error: ' + error.message);
+    }
+  };
+
+  const handleThumbsUp = async (artworkId) => {
+    try {
+      const response = await fetch(`http://localhost:5555/artworks/${artworkId}/like`, {
+        method: 'PATCH',
+      });
+
+      if (response.ok) {
+        const updatedArtworks = await fetch('http://localhost:5555/artworks')
+          .then((res) => res.json());
+
+        setArtworks(updatedArtworks);
+      } else {
+        alert('Failed to add thumbs up');
+      }
+    } catch (error) {
+      alert('Error: ' + error.message);
+    }
+  };
+
+  const handleThumbsDown = async (artworkId) => {
+    try {
+      const response = await fetch(`http://localhost:5555/artworks/${artworkId}/dislike`, {
+        method: 'PATCH',
+      });
+
+      if (response.ok) {
+        const updatedArtworks = await fetch('http://localhost:5555/artworks')
+          .then((res) => res.json());
+
+        setArtworks(updatedArtworks);
+      } else {
+        alert('Failed to add thumbs down');
+      }
+    } catch (error) {
+      alert('Error: ' + error.message);
+    }
+  };
+
+  const handleDeleteArtwork = async (artworkId) => {
+    try {
+      const response = await fetch(`http://localhost:5555/artworks/${artworkId}`, {
+        method: 'DELETE',
+      });
+
+      if (response.ok) {
+        const updatedArtworks = await fetch('http://localhost:5555/artworks')
+          .then((res) => res.json());
+
+        setArtworks(updatedArtworks);
+      } else {
+        alert('Failed to delete artwork');
       }
     } catch (error) {
       alert('Error: ' + error.message);
@@ -57,6 +119,15 @@ function ArtworksPage() {
         {artworks.map((artwork) => (
           <div key={artwork.id} className="artwork-item">
             <ArtworkCard artwork={artwork} />
+            <div className="artwork-actions">
+              <button onClick={() => handleThumbsUp(artwork.id)}>
+                👍 {artwork.like_count || 0}
+              </button>
+              <button onClick={() => handleThumbsDown(artwork.id)}>
+                👎 {artwork.dislike_count || 0}
+              </button>
+              <button onClick={() => handleDeleteArtwork(artwork.id)}>Delete</button>
+            </div>
           </div>
         ))}
       </div>

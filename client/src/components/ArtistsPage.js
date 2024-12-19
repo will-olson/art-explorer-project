@@ -33,7 +33,12 @@ function ArtistsPage() {
         const updatedArtists = await fetch('http://localhost:5555/artists')
           .then((res) => res.json());
 
-        setArtists(updatedArtists);
+        setArtists(updatedArtists); // Set the updated list of artists
+
+        setName('');
+        setBiography('');
+        setEraId('');
+        
       } else {
         alert('Failed to create artist');
       }

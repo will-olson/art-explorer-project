@@ -28,6 +28,9 @@ function DisciplinesPage() {
           .then((res) => res.json());
 
         setDisciplines(updatedDisciplines);
+        setName('');
+        setDescription('');
+
       } else {
         alert('Failed to create discipline');
       }
