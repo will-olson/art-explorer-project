@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react';
+import { useFormik } from 'formik';
+import * as Yup from 'yup';
 import ArtistCard from './ArtistCard';
 
 function ArtistsPage() {
   const [artists, setArtists] = useState([]);
-  const [name, setName] = useState('');
-  const [biography, setBiography] = useState('');
-  const [eraId, setEraId] = useState('');
   const [eras, setEras] = useState([]);
 
   useEffect(() => {
@@ -18,34 +17,51 @@ function ArtistsPage() {
       .then((data) => setEras(data));
   }, []);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const artistData = { name, biography, era_id: eraId };
+  const validationSchema = Yup.object({
+    name: Yup.string()
+      .matches(/^[a-zA-Z\s]*$/, 'Name must only contain letters and spaces')
+      .required('Name is required'),
+    biography: Yup.string().required('Biography is required'),
+    eraId: Yup.string()
+      .matches(/^\d+$/, 'Era ID must be a valid number')
+      .required('Era is required'),
+  });
 
-    try {
-      const response = await fetch('http://localhost:5555/artists', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(artistData),
-      });
+  const formik = useFormik({
+    initialValues: {
+      name: '',
+      biography: '',
+      eraId: '',
+    },
+    validationSchema,
+    onSubmit: async (values) => {
+      const artistData = { 
+        name: values.name, 
+        biography: values.biography, 
+        era_id: values.eraId 
+      };
 
-      if (response.ok) {
-        const updatedArtists = await fetch('http://localhost:5555/artists')
-          .then((res) => res.json());
+      try {
+        const response = await fetch('http://localhost:5555/artists', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(artistData),
+        });
 
-        setArtists(updatedArtists); // Set the updated list of artists
+        if (response.ok) {
+          const updatedArtists = await fetch('http://localhost:5555/artists')
+            .then((res) => res.json());
+          setArtists(updatedArtists);
 
-        setName('');
-        setBiography('');
-        setEraId('');
-        
-      } else {
-        alert('Failed to create artist');
+          formik.resetForm();
+        } else {
+          alert('Failed to create artist');
+        }
+      } catch (error) {
+        alert('Error: ' + error.message);
       }
-    } catch (error) {
-      alert('Error: ' + error.message);
-    }
-  };
+    },
+  });
 
   return (
     <div className="page-container">
@@ -58,24 +74,40 @@ function ArtistsPage() {
       </div>
 
       <div className="form-section">
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={formik.handleSubmit}>
           <label>Name:</label>
           <input
             type="text"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
+            name="name"
+            value={formik.values.name}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
             required
           />
-          
+          {formik.touched.name && formik.errors.name && (
+            <div className="error">{formik.errors.name}</div>
+          )}
+
           <label>Biography:</label>
           <textarea
-            value={biography}
-            onChange={(e) => setBiography(e.target.value)}
+            name="biography"
+            value={formik.values.biography}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
             required
           />
-          
+          {formik.touched.biography && formik.errors.biography && (
+            <div className="error">{formik.errors.biography}</div>
+          )}
+
           <label>Era:</label>
-          <select value={eraId} onChange={(e) => setEraId(e.target.value)} required>
+          <select
+            name="eraId"
+            value={formik.values.eraId}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            required
+          >
             <option value="">Select Era</option>
             {eras.map((era) => (
               <option key={era.id} value={era.id}>
@@ -83,6 +115,9 @@ function ArtistsPage() {
               </option>
             ))}
           </select>
+          {formik.touched.eraId && formik.errors.eraId && (
+            <div className="error">{formik.errors.eraId}</div>
+          )}
 
           <button type="submit">Create Artist</button>
         </form>

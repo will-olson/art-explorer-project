@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
+import { useFormik } from 'formik';
+import * as Yup from 'yup';
 import EraCard from './EraCard';
 
 function ErasPage() {
   const [eras, setEras] = useState([]);
-  const [name, setName] = useState('');
-  const [description, setDescription] = useState('');
 
   useEffect(() => {
     fetch('http://localhost:5555/eras')
@@ -12,34 +12,45 @@ function ErasPage() {
       .then((data) => setEras(data));
   }, []);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const eraData = { name, description };
-  
-    try {
-      const response = await fetch('http://localhost:5555/eras', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(eraData),
-      });
-  
-      if (response.ok) {
-        const updatedEras = await fetch('http://localhost:5555/eras')
-          .then((res) => res.json());
-  
-        setEras(updatedEras);
+  const validationSchema = Yup.object({
+    name: Yup.string()
+      .matches(/^[a-zA-Z\s]*$/, 'Name must only contain letters and spaces')
+      .required('Name is required'),
+    description: Yup.string().required('Description is required'),
+  });
 
-        setName('');
-        setDescription('');
-        
-      } else {
-        alert('Failed to create era');
+  const formik = useFormik({
+    initialValues: {
+      name: '',
+      description: '',
+    },
+    validationSchema,
+    onSubmit: async (values) => {
+      const eraData = { 
+        name: values.name, 
+        description: values.description
+      };
+
+      try {
+        const response = await fetch('http://localhost:5555/eras', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(eraData),
+        });
+
+        if (response.ok) {
+          const updatedEras = await fetch('http://localhost:5555/eras')
+            .then((res) => res.json());
+          setEras(updatedEras);
+          formik.resetForm();
+        } else {
+          alert('Failed to create era');
+        }
+      } catch (error) {
+        alert('Error: ' + error.message);
       }
-    } catch (error) {
-      alert('Error: ' + error.message);
-    }
-  };
-  
+    },
+  });
 
   return (
     <div className="page-container">
@@ -52,21 +63,31 @@ function ErasPage() {
       </div>
 
       <div className="form-section">
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={formik.handleSubmit}>
           <label>Name:</label>
           <input
             type="text"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
+            name="name"
+            value={formik.values.name}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
             required
           />
+          {formik.touched.name && formik.errors.name && (
+            <div className="error">{formik.errors.name}</div>
+          )}
 
           <label>Description:</label>
           <textarea
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
+            name="description"
+            value={formik.values.description}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
             required
           />
+          {formik.touched.description && formik.errors.description && (
+            <div className="error">{formik.errors.description}</div>
+          )}
 
           <button type="submit">Create Era</button>
         </form>
