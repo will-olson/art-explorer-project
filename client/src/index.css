@@ -183,6 +183,7 @@ a:hover {
 
 .homepage-explore div:hover {
   background-color: var(--primary-color);
+  color: #fff;
   transform: scale(1.02);
 }
 
@@ -190,6 +191,10 @@ a:hover {
   font-size: 1.5rem;
   margin-bottom: 10px;
   color: #000000;
+}
+
+.homepage-explore div:hover h3 {
+  color: #fff;
 }
 
 .homepage-explore div p {
@@ -213,9 +218,9 @@ a:hover {
   font-size: 1rem;
 }
 
-.homepage-explore div a:hover {
-  text-decoration: none;
+.homepage-explore div:hover a {
   color: var(--secondary-color);
+  text-decoration: none;
 }
 
 .era-card,
