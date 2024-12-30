@@ -31,11 +31,11 @@ function ArtworksPage() {
     imageFile: Yup.string()
       .url('Image URL must be a valid URL')
       .required('Image file URL is required'),
-    artistId: Yup.string()
-      .matches(/^\d+$/, 'Artist ID must be a valid number')
+      artistId: Yup.number()
+      .typeError('Artist ID must be a number')
       .required('Artist is required'),
-    disciplineId: Yup.string()
-      .matches(/^\d+$/, 'Discipline ID must be a valid number')
+    disciplineId: Yup.number()
+      .typeError('Discipline ID must be a number')
       .required('Discipline is required'),
   });
 
